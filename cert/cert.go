@@ -80,7 +80,7 @@ func NewSelfSignedCACert(cfg Config, key crypto.Signer) (*x509.Certificate, erro
 			Organization: cfg.Organization,
 		},
 		NotBefore:             now.UTC(),
-		NotAfter:              now.Add(duration365d * 10).UTC(),
+		NotAfter:              now.Add(duration365d * 100).UTC(),
 		KeyUsage:              x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign,
 		BasicConstraintsValid: true,
 		IsCA:                  true,
@@ -115,7 +115,7 @@ func NewSignedCert(cfg Config, key crypto.Signer, caCert *x509.Certificate, caKe
 		IPAddresses:  cfg.AltNames.IPs,
 		SerialNumber: serial,
 		NotBefore:    caCert.NotBefore,
-		NotAfter:     time.Now().Add(duration365d).UTC(),
+		NotAfter:     time.Now().Add(duration365d * 100).UTC(),
 		KeyUsage:     x509.KeyUsageKeyEncipherment | x509.KeyUsageDigitalSignature,
 		ExtKeyUsage:  cfg.Usages,
 	}
